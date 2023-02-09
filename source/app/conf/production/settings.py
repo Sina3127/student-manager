@@ -1,7 +1,6 @@
 import os
 from os.path import dirname
 
-from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
@@ -90,16 +89,7 @@ LOGIN_URL = 'accounts:log_in'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-USE_I18N = True
-USE_L10N = True
 LANGUAGE_CODE = 'en'
-LANGUAGES = [
-    ('en', _('English')),
-    ('ru', _('Russian')),
-    ('zh-Hans', _('Simplified Chinese')),
-    ('fr', _('French')),
-    ('es', _('Spanish')),
-]
 
 TIME_ZONE = 'UTC'
 USE_TZ = True

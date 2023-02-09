@@ -91,16 +91,7 @@ LOGIN_URL = 'accounts:log_in'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-USE_I18N = True
-USE_L10N = True
 LANGUAGE_CODE = 'en'
-LANGUAGES = [
-    ('en', _('English')),
-    ('ru', _('Russian')),
-    ('zh-Hans', _('Simplified Chinese')),
-    ('fr', _('French')),
-    ('es', _('Spanish')),
-]
 
 TIME_ZONE = 'UTC'
 USE_TZ = True
