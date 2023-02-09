@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'ckeditor',
 
     # Vendor apps
     'bootstrap4',
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     # Application apps
     'main',
     'accounts',
+    'college',
 ]
 
 MIDDLEWARE = [
@@ -111,3 +113,13 @@ LOCALE_PATHS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': 800,
+    },
+}
