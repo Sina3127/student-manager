@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import ValidationError, ModelForm
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import Signatures
@@ -21,7 +20,7 @@ class SignIn(UserCacheMixin, forms.Form):
             return password
 
         if not self.user_cache.check_password(password):
-            raise ValidationError(_('You entered an invalid password.'))
+            raise forms.ValidationError(_('You entered an invalid password.'))
 
         return password
 
@@ -38,10 +37,10 @@ class SignInViaUsernameForm(SignIn):
 
         user = User.objects.filter(username=username).first()
         if not user:
-            raise ValidationError(_('You entered an invalid username.'))
+            raise forms.ValidationError(_('You entered an invalid username.'))
 
         if not user.is_active:
-            raise ValidationError(_('This account is not active.'))
+            raise forms.ValidationError(_('This account is not active.'))
 
         self.user_cache = user
 
@@ -53,15 +52,7 @@ class ChangeProfileForm(forms.Form):
     last_name = forms.CharField(label=_('Last name'), max_length=150, required=False)
 
 
-class SignatureForm(ModelForm):
+class SignatureForm(forms.ModelForm):
     class Meta:
         model = Signatures
         fields = ("img",)
-
-    def __init__(self, user, *args, **kwargs):
-        super(SignatureForm, self).__init__(*args, **kwargs)
-        self.user = user
-
-    def save(self, commit=True):
-        self.instance.user = self.user
-        super(SignatureForm, self).save(commit)

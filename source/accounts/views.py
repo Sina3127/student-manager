@@ -6,7 +6,6 @@ from django.contrib.auth.views import (
     LogoutView as BaseLogoutView, PasswordChangeView as BasePasswordChangeView,
 )
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.http import url_has_allowed_host_and_scheme as is_safe_url
 from django.utils.translation import gettext_lazy as _
@@ -18,6 +17,7 @@ from django.views.generic import View, FormView
 
 from .forms import (
     SignInViaUsernameForm, ChangeProfileForm, SignatureForm, )
+from .models import Signatures
 
 
 class GuestOnlyView(View):
@@ -107,11 +107,12 @@ class LogOutView(LoginRequiredMixin, BaseLogoutView):
 
 
 class ChangeSignatureView(LoginRequiredMixin, generic.FormView):
-    template_name = 'accounts/profile/add_signature.html'
+    template_name = 'accounts/profile/change_signature.html'
     form_class = SignatureForm
-    success_url = reverse_lazy('index')
 
-    def get_form_kwargs(self):
-        kwargs = super(ChangeSignatureView, self).get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
+    def form_valid(self, form):
+        Signatures.objects.update_or_create(
+            user=self.request.user,
+            defaults={"img": form.cleaned_data.get('img')}
+        )
+        return redirect('index')
