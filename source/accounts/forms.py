@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import ValidationError
+from django.forms import ValidationError, ModelForm
 from django.utils.translation import gettext_lazy as _
+
+from accounts.models import Signatures
 
 
 class UserCacheMixin:
@@ -49,3 +51,17 @@ class SignInViaUsernameForm(SignIn):
 class ChangeProfileForm(forms.Form):
     first_name = forms.CharField(label=_('First name'), max_length=30, required=False)
     last_name = forms.CharField(label=_('Last name'), max_length=150, required=False)
+
+
+class SignatureForm(ModelForm):
+    class Meta:
+        model = Signatures
+        fields = ("img",)
+
+    def __init__(self, user, *args, **kwargs):
+        super(SignatureForm, self).__init__(*args, **kwargs)
+        self.user = user
+
+    def save(self, commit=True):
+        self.instance.user = self.user
+        super(SignatureForm, self).save(commit)
