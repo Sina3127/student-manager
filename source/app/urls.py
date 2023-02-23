@@ -11,6 +11,7 @@ urlpatterns = [
     path('', IndexPageView.as_view(), name='index'),
 
     path('accounts/', include('accounts.urls')),
+    path('college/', include('college.urls')),
 ]
 
 if settings.DEBUG:
