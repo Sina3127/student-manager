@@ -21,6 +21,6 @@ class Agreement(models.Model):
 
 
 class Duration(models.Model):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()  # todo end_date >>> start_date
+    start_date = models.DateField()
+    end_date = models.DateField()  # todo end_date >>> start_date
     agreement = models.ForeignKey(Agreement, on_delete=models.PROTECT)

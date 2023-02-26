@@ -28,11 +28,19 @@ class AgreementView(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(AgreementView, self).get_context_data(**kwargs)
-        if self.request.method == 'GET':
-            ctx['named_formsets'] = DurationFormSet(prefix='duration')
-        else:
-            ctx['named_formsets'] = DurationFormSet(self.request.POST or None, self.request.FILES or None, prefix='duration')
+        ctx['named_formsets'] = self.get_named_formsets()
         return ctx
+
+    def get_named_formsets(self):
+        if self.request.method == 'GET':
+            return {
+                'variants': DurationFormSet(prefix='duration')
+            }
+        else:
+            return {
+                'variants': DurationFormSet(self.request.POST or None, self.request.FILES or None,
+                                            prefix='duration')
+            }
 
     def form_valid(self, form):
         pass

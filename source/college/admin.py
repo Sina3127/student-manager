@@ -9,6 +9,7 @@ class DurationInline(admin.TabularInline):
     min_num = 1
     max_num = 12
 
+
 @admin.register(Agreement)
 class AgreementAdmin(admin.ModelAdmin):
     inlines = [DurationInline]
