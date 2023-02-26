@@ -7,16 +7,12 @@
 
 <h4>{% trans 'contract detail' %}</h4>
 
-<div class="card text-center" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{ contract.title }}</h5>
-    <p class="card-text">{{ contract.content|safe }}</p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
-  </div>
+<div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title">{{ contract.title }}</h5>
+        <p class="card-text">{{ contract.content|safe }}</p>
+        <a href="{% url 'college:agreement_create' id=contract.id %}" class="btn btn-primary">start agreement</a>
+    </div>
 </div>
-
-<label for="exampleInputEmail1">Students name</label>
-<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
 
 {% endblock %}

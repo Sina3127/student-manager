@@ -13,7 +13,7 @@ class Contract(models.Model):
 
 
 class Agreement(models.Model):
-    students_name = models.CharField(max_length=30)
+    students_name = models.CharField(max_length=30, default='')
     number_of_classes = models.IntegerField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     contract = models.ForeignKey(Contract, on_delete=models.PROTECT)
