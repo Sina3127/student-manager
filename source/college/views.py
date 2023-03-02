@@ -43,4 +43,17 @@ class AgreementView(LoginRequiredMixin, generic.CreateView):
             }
 
     def form_valid(self, form):
-        pass
+        named_formsets = self.get_named_formsets()
+        if not all((x.is_valid() for x in named_formsets.values())):
+            return self.render_to_response(self.get_context_data(form=form))
+        self.object = form.save()
+
+        formset = named_formsets['variant']
+        formset.agreement = self.object
+        formset.save()
+
+    def get_form_kwargs(self):
+        kwargs = super(AgreementView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        kwargs['contract'] = self.request.GET.get('id')
+        return kwargs

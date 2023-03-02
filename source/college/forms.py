@@ -9,6 +9,16 @@ class AgreementForm(forms.ModelForm):
         model = Agreement
         fields = ('students_name', 'number_of_classes', 'price')
 
+    def __init__(self, user, contract, *args, **kwargs):
+        super(AgreementForm, self).__init__(*args, **kwargs)
+        self.user = user
+        self.contract = contract
+
+    def save(self, commit=True):
+        self.instance.user = self.user
+        self.instance.contract = self.contract
+        super(AgreementForm, self).save(commit)
+
 
 class DurationForm(forms.ModelForm):
     class Meta:
