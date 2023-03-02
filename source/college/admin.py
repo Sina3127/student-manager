@@ -16,3 +16,4 @@ class AgreementAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Contract)
+admin.site.register(Duration)

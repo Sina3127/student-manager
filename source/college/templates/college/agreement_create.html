@@ -117,7 +117,7 @@
                 $('#item-variants').append(compiledTmpl);
 
                 // update form count
-                $('#id_variants-TOTAL_FORMS').attr('value', count + 1);
+                $('#id_duration-TOTAL_FORMS').attr('value', count + 1);
             });
 
             $('.remove-variants').click(function (ev) {
@@ -125,7 +125,7 @@
                 var count = $('#item-variants').children().length - 1;
                 $('#variants-' + count).remove();
                 // update form count
-                $('#id_variants-TOTAL_FORMS').attr('value', count);
+                $('#id_duration-TOTAL_FORMS').attr('value', count);
             });
         });
     </script>

@@ -17,13 +17,13 @@ class AgreementForm(forms.ModelForm):
     def save(self, commit=True):
         self.instance.user = self.user
         self.instance.contract = self.contract
-        super(AgreementForm, self).save(commit)
+        return super(AgreementForm, self).save(commit)
 
 
 class DurationForm(forms.ModelForm):
     class Meta:
         model = Duration
-        fields = ('start_date', 'end_date', 'agreement')
+        fields = ('start_date', 'end_date')
         widgets = {
             'start_date': forms.DateInput(format='%d/%m/%Y',
                                           attrs={'class': 'form-control',
@@ -36,6 +36,7 @@ class DurationForm(forms.ModelForm):
                                                'type': 'date'
                                                }),
         }
+    # todo start beginner than end
 
 
 DurationFormSet = inlineformset_factory(

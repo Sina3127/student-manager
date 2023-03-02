@@ -19,8 +19,15 @@ class Agreement(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return "students_name: " + self.students_name + " contract: " + self.contract.title + " user: " + str(
+            self.user)
+
 
 class Duration(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()  # todo end_date >>> start_date
     agreement = models.ForeignKey(Agreement, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.agreement.contract.title + " start_date: " + str(self.start_date) + " end_date: " + str(self.end_date)
