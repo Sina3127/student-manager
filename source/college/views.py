@@ -62,12 +62,19 @@ class AgreementView(LoginRequiredMixin, generic.CreateView):
             Duration.agreement = agreement
             Duration.save()
 
-        return redirect('index')  # todo redirect agreement
+        return redirect('college:agreement_details', id=agreement.id)
 
     def get_form_kwargs(self):
         kwargs = super(AgreementView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         kwargs['contract'] = self.contract
         return kwargs
+
+
+class AgreementDetailsView(LoginRequiredMixin, generic.DetailView):
+    template_name = 'college/agreement_details.html'
+    model = Agreement
+    context_object_name = 'agreement'
+    pk_url_kwarg = 'id'
 
 # todo page my old agreement

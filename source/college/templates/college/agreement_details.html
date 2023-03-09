@@ -1,0 +1,61 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<h4>{% trans 'contract detail' %}</h4>
+
+<div class="container" id="container">
+    <div class="row">
+        <h5 class="card-title">{{ agreement.contract.content|safe }}</h5>
+    </div>
+    <div class="row">
+        <h1>students name: {{ agreement.students_name }} </h1>
+    </div>
+    <div class="row">
+        <h1>number of classes: {{ agreement.number_of_classes }} </h1>
+    </div>
+    <div class="row">
+        <h1>price: {{ agreement.price }} </h1>
+    </div>
+
+    <div class="container">
+        {% for i in agreement.duration.all %}
+        <div class="row" type="date">
+            {{ i.start_date }}
+        </div>
+        <div class="row" type="date">
+            {{ i.end_date }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<button class="btn btn button-print">Print</button>
+
+<script crossorigin="anonymous"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+            // when user clicks add more btn of variants
+            $('.button]-print').click(function (ev) {
+                var divToPrint=document.getElementById('container');
+
+                  var newWin=window.open('','Print-Window');
+
+                  newWin.document.open();
+
+                  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+                  newWin.document.close();
+
+                  setTimeout(function(){newWin.close();},10);
+            });
+        });
+
+</script>
+
+{% endblock %}

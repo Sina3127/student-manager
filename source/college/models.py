@@ -27,7 +27,7 @@ class Agreement(models.Model):
 class Duration(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()  # todo end_date >>> start_date
-    agreement = models.ForeignKey(Agreement, on_delete=models.PROTECT)
+    agreement = models.ForeignKey(Agreement, on_delete=models.PROTECT, related_name='duration')
 
     def __str__(self):
         return self.agreement.contract.title + " start_date: " + str(self.start_date) + " end_date: " + str(self.end_date)
