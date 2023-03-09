@@ -1,6 +1,7 @@
 import os
 from os.path import dirname
 
+from django.contrib import messages
 
 BASE_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
@@ -88,6 +89,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts:log_in'
+LOGOUT_REDIRECT_URL = 'index'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -120,4 +122,12 @@ CKEDITOR_CONFIGS = {
         'height': 300,
         'width': 300,
     },
+}
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }

@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
 
@@ -77,4 +78,19 @@ class AgreementDetailsView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'agreement'
     pk_url_kwarg = 'id'
 
-# todo page my old agreement
+    def get_object(self, queryset=None):
+        instance = super(AgreementDetailsView, self).get_object(queryset)
+        if instance.user != self.request.user:
+            raise PermissionDenied("you can't access this agreement")
+        return instance
+
+
+class AgreementListView(LoginRequiredMixin, generic.ListView):
+    template_name = 'college/agreement_list.html'
+    paginate_by = 10
+    order_by = 'id'
+    allow_empty = False
+    context_object_name = 'agreement_list'
+
+    def get_queryset(self):
+        return Agreement.objects.filter(user=self.request.user).all()

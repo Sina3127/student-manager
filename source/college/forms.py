@@ -36,7 +36,14 @@ class DurationForm(forms.ModelForm):
                                                'type': 'date'
                                                }),
         }
-    # todo start beginner than end
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if start_date >= end_date:
+            raise forms.ValidationError('The start time must be less than the end time.')
+        return cleaned_data
 
 
 DurationFormSet = inlineformset_factory(

@@ -2,7 +2,7 @@ import os
 import warnings
 from os.path import dirname
 
-from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
 
 warnings.simplefilter('error', DeprecationWarning)
 
@@ -90,6 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts:log_in'
+LOGOUT_REDIRECT_URL = 'index'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -122,4 +123,12 @@ CKEDITOR_CONFIGS = {
         'height': 400,
         'width': 800,
     },
+}
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
