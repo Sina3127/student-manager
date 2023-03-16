@@ -5,38 +5,42 @@
 
 {% block content %}
 
-<div class="container bg-light p-4">
-    <h1 class="pb-4">{% trans 'Aggrement detail' %}</h1>
+    <div class="container bg-light p-4">
+        <h1 class="pb-4">{% trans 'Aggrement detail' %}</h1>
 
-    {% for agreement in agreement_list %}
-    <div class="row pb-1">
-        <div class="card text-center col" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ agreement.contract.title }}</h5>
-                <a class="btn btn-primary" href="{% url 'college:agreement_details' id=agreement.id %}">aggrement
-                    details</a>
+        {% for agreement in agreement_list %}
+            <div class="row pb-1">
+                <div class="card text-center col" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ agreement.contract.title }}</h5>
+                        <a class="btn btn-primary" href="{% url 'college:agreement_details' id=agreement.id %}">aggrement
+                            details</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
 
 
-    <div class="pagination">
+        {% if is_paginated %}
+
+            <div class="pagination">
         <span class="step-links">
-            {% if agreement_list.has_previous %}
+            {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ agreement_list.previous_page_number }}">previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
             {% endif %}
 
             <span class="current">
-                Page {{ agreement_list.number }} of {{ agreement_list.paginator.num_pages }}.
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
             </span>
 
-            {% if agreement_list.has_next %}
-                <a href="?page={{ agreement_list.next_page_number }}">next</a>
-                <a href="?page={{ agreement_list.paginator.num_pages }}">last &raquo;</a>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
+            </div>
+
+        {% endif %}
     </div>
-</div>
 {% endblock %}
