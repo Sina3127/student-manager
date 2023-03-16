@@ -5,15 +5,17 @@
 
 {% block content %}
 
-<h4>{% trans 'change signature' %}</h4>
+<div class="container bg-light p-4">
+    <h1>{% trans 'change signature' %}</h1>
 
-<form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {% bootstrap_form form %}
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-    <button class="btn btn-success">{% trans 'Change' %}</button>
+        <button class="btn btn-success btn-lg btn-block">{% trans 'Change' %}</button>
 
-</form>
+    </form>
+</div>
 
 {% endblock %}

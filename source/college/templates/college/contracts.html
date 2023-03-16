@@ -5,33 +5,39 @@
 
 {% block content %}
 
-<h4>{% trans 'contracts' %}</h4>
+<div class="container bg-light p-4">
+    <h1 class="pb-4">{% trans 'contracts' %}</h1>
 
-{% for c in contract_list %}
-<div class="card text-center" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{ c.title }}</h5>
-    <a href="{% url 'college:contract_details' id=c.id %}" class="btn btn-primary">start new contract</a>
-  </div>
-</div>
-{% endfor %}
+    {% for c in contract_list %}
+    <div class="row pb-1">
+        <div class="card text-center col" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ c.title }}</h5>
+                <a class="btn btn-primary" href="{% url 'college:contract_details' id=c.id %}">start new
+                    contract</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if paginator.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ paginator.previous_page_number }}">previous</a>
+            {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            <span class="current">
+                Page {{ paginator.number }} of {{ paginator.paginator.num_pages }}.
+            </span>
+
+            {% if paginator.has_next %}
+                <a href="?page={{ paginator.next_page_number }}">next</a>
+                <a href="?page={{ paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </span>
+    </div>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
 </div>
 
 {% endblock %}

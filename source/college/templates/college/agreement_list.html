@@ -5,33 +5,38 @@
 
 {% block content %}
 
-    <h4>{% trans 'Aggrement detail' %}</h4>
+<div class="container bg-light p-4">
+    <h1 class="pb-4">{% trans 'Aggrement detail' %}</h1>
+
     {% for agreement in agreement_list %}
-        <div class="card text-center" style="width: 18rem;">
+    <div class="row pb-1">
+        <div class="card text-center col" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ agreement.contract.title }}</h5>
-                <a href="{% url 'college:agreement_details' id=agreement.id %}" class="btn btn-primary">aggrement
+                <a class="btn btn-primary" href="{% url 'college:agreement_details' id=agreement.id %}">aggrement
                     details</a>
             </div>
         </div>
+    </div>
     {% endfor %}
 
 
     <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+        <span class="step-links">
+            {% if agreement_list.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ agreement_list.previous_page_number }}">previous</a>
+            {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            <span class="current">
+                Page {{ agreement_list.number }} of {{ agreement_list.paginator.num_pages }}.
+            </span>
+
+            {% if agreement_list.has_next %}
+                <a href="?page={{ agreement_list.next_page_number }}">next</a>
+                <a href="?page={{ agreement_list.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
     </div>
+</div>
 {% endblock %}
