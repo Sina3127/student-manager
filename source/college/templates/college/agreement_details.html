@@ -5,41 +5,43 @@
 
 {% block content %}
 
-<div class="container bg-light p-4">
-    <h1 class="pb-4">{% trans 'contract detail' %}</h1>
+    <div class="container bg-light p-4">
+        <h1 class="pb-4">{% trans 'contract detail' %}</h1>
 
-    <div class="container" id="container">
-        <div class="row">
-            <p class="card-title">{{ agreement.contract.content|safe }}</p>
-        </div>
-        <div class="row">
-            <h5>students name: {{ agreement.students_name }} </h5>
-        </div>
-        <div class="row">
-            <h5>number of classes: {{ agreement.number_of_classes }} </h5>
-        </div>
-        <div class="row pb-4">
-            <h5>price: {{ agreement.price }} </h5>
+        <div class="container" id="printarea">
+            <div class="row">
+                <p class="card-title">{{ agreement.contract.content|safe }}</p>
+            </div>
+            <div class="row">
+                <h5>students name: {{ agreement.students_name }} </h5>
+            </div>
+            <div class="row">
+                <h5>number of classes: {{ agreement.number_of_classes }} </h5>
+            </div>
+            <div class="row pb-4">
+                <h5>price: {{ agreement.price }} </h5>
+            </div>
+
+            <div class="container">
+                {% for i in agreement.duration.all %}
+                    <div class="row">start date:
+                        <div class="col" type="date">
+                            {{ i.start_date }}
+                        </div>
+                        <div>end date:</div>
+                        <div class="col pb-4" type="date">
+                            {{ i.end_date }}
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+            <img src="{{ agreement.user.signatures.img.url }}" width="200" height="200"/>
         </div>
 
-        <div class="container">
-            {% for i in agreement.duration.all %}
-                <div class="row">start date:
-                    <div class="col" type="date">
-                        {{ i.start_date }}
-                    </div>
-                    <div>end date:</div>
-                    <div class="col pb-4" type="date">
-                        {{ i.end_date }}
-                    </div>
-                    <br>
-                </div>
-            {% endfor %}
-        </div>
-        <img src="{{ agreement.user.signatures.img.url }}" width="200" height="200" />
+        <br>
+        <button class="btn btn button-print btn-success btn-lg btn-block">Print</button>
     </div>
-    <button class="btn btn button-print btn-success btn-lg btn-block">Print</button>
-</div>
 
     <script crossorigin="anonymous"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -49,19 +51,10 @@
         $(document).ready(function () {
             // when user clicks add more btn of variants
             $('.button-print').click(function (ev) {
-                var divToPrint = document.getElementById('container');
-
-                var newWin = window.open('', 'Print-Window');
-
-                newWin.document.open();
-
-                newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
-
-                newWin.document.close();
-
-                setTimeout(function () {
-                    newWin.close();
-                }, 100);
+                $(".button-print").css('display', 'none');
+                $(".printarea").show();
+                window.print();
+                $(".button-print").css('display', 'block');
             });
         });
 
