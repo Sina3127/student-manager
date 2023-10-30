@@ -7,11 +7,11 @@
 
 <h4>{% trans 'contract detail' %}</h4>
 
-<div class="card text-center">
+<div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{ contract.title }}</h5>
-        <p class="card-text">{{ contract.content|safe }}</p>
-        <a href="{% url 'college:agreement_create' id=contract.id %}" class="btn btn-primary">start agreement</a>
+        <h3 class="card-title text-center">{{ contract.title }}</h3>
+        <p class="card-text text-left">{{ contract.content|safe }}</p>
+        <a href="{% url 'college:agreement_create' id=contract.id %}" class="btn btn-primary btn-lg btn-block">start agreement</a>
     </div>
 </div>
 

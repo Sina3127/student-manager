@@ -10,7 +10,7 @@ from college.models import Contract, Agreement
 class ContractsView(LoginRequiredMixin, generic.ListView):
     template_name = 'college/contracts.html'
     model = Contract
-    paginate_by = 10
+    paginate_by = 4
     order_by = 'id'
     allow_empty = False
     context_object_name = 'contract_list'
